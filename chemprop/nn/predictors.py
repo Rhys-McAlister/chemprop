@@ -77,7 +77,12 @@ class _FFNPredictorBase(Predictor, HyperparametersMixin):
         self.hparams["cls"] = self.__class__
 
         self.ffn = MLP(
-            input_dim, n_tasks * self.n_targets, hidden_dim, n_layers, dropout, activation
+            input_dim,
+            n_tasks * self.n_targets,
+            hidden_dim,
+            n_layers,
+            dropout,
+            activation,
         )
         self.criterion = criterion or self._default_criterion
 
@@ -118,7 +123,9 @@ class RegressionFFN(_FFNPredictorBase):
         loc: float | Tensor = 0,
         scale: float | Tensor = 1,
     ):
-        super().__init__(n_tasks, input_dim, hidden_dim, n_layers, dropout, activation, criterion)
+        super().__init__(
+            n_tasks, input_dim, hidden_dim, n_layers, dropout, activation, criterion
+        )
 
         self.register_buffer("loc", torch.tensor(loc).view(-1, 1))
         self.register_buffer("scale", torch.tensor(scale).view(-1, 1))
@@ -234,7 +241,13 @@ class MulticlassClassificationFFN(_FFNPredictorBase):
         criterion: LossFunction | None = None,
     ):
         super().__init__(
-            n_tasks * n_classes, input_dim, hidden_dim, n_layers, dropout, activation, criterion
+            n_tasks * n_classes,
+            input_dim,
+            hidden_dim,
+            n_layers,
+            dropout,
+            activation,
+            criterion,
         )
 
         self.n_classes = n_classes

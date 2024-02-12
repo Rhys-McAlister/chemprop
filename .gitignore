@@ -174,3 +174,5 @@ chemprop/_version.py
 *.ipynb
 
 !tests/data/*
+notebooks/big_data/data/ir_dataset.parquet
+*.parquet
